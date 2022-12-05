@@ -19,5 +19,13 @@
                 <li class="<?= ($page==='plats') ? 'actif' : ''; ?>"><a href="plats.php">Plats</a></li>
                 <li class="<?= ($page==='vins') ? 'actif' : ''; ?>"><a href="vins.php">Vins</a></li>
             </ul>
+
+            <!-- Information sur l'utilisateur connecté -->
+            <?php if(isset($_SESSION['util-courriel'])) { ?>
+                <div class="util">
+                    <span><?= $_SESSION['util-courriel']; ?></span>
+                    <a class="btn btn-supprimer" href="index.php?action=deconnexion">&#x21E6;&nbsp;Déconnexion</a>
+                </div>
+            <?php } ?>
         </nav>
     </header>

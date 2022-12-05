@@ -1,18 +1,27 @@
 <?php
+    // Démarrer la gestion de la session d'utilisateur.
+    session_start();
+
     $page = 'accueil';
 
+    // Codes d'erreurs utilisés sur la page
     $codesErreurs = [
         '1000'  =>  "Vous devez être authentifié pour accéder à cette page.",
         '2000'  =>  "Vous avez été déconnecté.",
         '3000'  =>  "Mauvaise combinaison courriel/mot de passe."
     ];
 
+    // Actions de la page
+    if(isset($_GET['action']) && $_GET['action'] === 'deconnexion') {
+        // Si la valeur du paramètre "action" est 'deconnexion' alors *déconnecter*
+        // l'utilisateur : détruire la variable de session 'util-courriel'
+        unset($_SESSION['util-courriel']);
+    }
+
+    // S'il y a un code d'erreur
     if(isset($_GET['e'])) {
         $erreur = $codesErreurs[$_GET['e']];
     }
-
-    // Démarrer la gestion de la session d'utilisateur.
-    session_start();
 
     // On teste si le formulaire a été soumit : 
     /* 

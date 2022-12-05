@@ -23,6 +23,15 @@ body header h2 {
 }
 body header nav {
   background-color: #aaa;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+body header nav div.util {
+  margin-right: 1rem;
+}
+body header nav div.util a {
+  color: white;
 }
 body header nav ul {
   margin: 0;
