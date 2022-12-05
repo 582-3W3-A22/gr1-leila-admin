@@ -10,6 +10,12 @@
         header('Location: index.php?e=1000');
     }
 
+    // Manipulation des données
+    $cnx = mysqli_connect('localhost', 'root', '', 'leila');
+    mysqli_set_charset($cnx, 'utf8');
+    // Lecture des données ('read' ====>>>> SELECT)
+    $resultat = mysqli_query($cnx, "SELECT * FROM categorie");
+
     include('inclusions/entete.inc.php');
 ?>
     <section class="liste-enregistrements">
@@ -21,48 +27,44 @@
             <span class="action"></span>
         </header>
         <div class="data">
-            <article class="nouveau">
+            <!-- Formulaire pour création de données (INSERT) -->
+            <form class="nouveau">
                 <span></span>
                 <span><input type="text" name="cat_nom" value=""></span>
                 <span>
                     <select name="cat_type" id="cat_type">
                         <option value="">Choisir</option>
                         <option value="plat">Plat</option>
-                        <option value="plat">Vin</option>
+                        <option value="vin">Vin</option>
                     </select>
                 </span>
                 <span class="action">
                     <button class="btn btn-ajouter btn-plein">ajouter</button>
                 </span>
-            </article>
-            <article>
-                <span>1</span>
-                <span><input type="text" name="cat_nom" value="Entrées"></span>
-                <span>
-                    <select name="cat_type" id="cat_type">
-                        <option value="plat">Plat</option>
-                        <option value="plat">Vin</option>
-                    </select>
-                </span>
-                <span class="action">
-                    <button class="btn btn-modifier">modifier</button>
-                    <button class="btn btn-supprimer">supprimer</button>
-                </span>
-            </article>
-            <article>
-                <span>2</span>
-                <span><input type="text" name="cat_nom" value="Rouge"></span>
-                <span>
-                    <select name="cat_type" id="cat_type">
-                        <option value="plat">Plat</option>
-                        <option value="plat" selected>Vin</option>
-                    </select>
-                </span>
-                <span class="action">
-                    <button class="btn btn-modifier">modifier</button>
-                    <button class="btn btn-supprimer">supprimer</button>
-                </span>
-            </article>
+            </form>
+
+            <!-- Formualire pour afficher/modifier/supprimer les données -->
+            <!-- Un pour chaque élément de données -->
+
+            <?php
+                while($enreg = mysqli_fetch_assoc($resultat)) {
+                    //print_r($enreg); // Débogage
+            ?>
+                <form>
+                    <span><?= $enreg['id']; ?></span>
+                    <span><input type="text" name="cat_nom" value="<?= $enreg['nom']; ?>"></span>
+                    <span>
+                        <select name="cat_type" id="cat_type">
+                            <option <?= $enreg['type']==='plat' ? 'selected' : ''; ?> value="plat">Plat</option>
+                            <option <?= $enreg['type']==='vin' ? 'selected' : ''; ?> value="plat">Vin</option>
+                        </select>
+                    </span>
+                    <span class="action">
+                        <button class="btn btn-modifier">modifier</button>
+                        <button class="btn btn-supprimer">supprimer</button>
+                    </span>
+                </form>
+            <?php } ?>
         </div>
     </section>
 <?php include('inclusions/pied2page.inc.php'); ?>

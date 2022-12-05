@@ -24,7 +24,7 @@
             <?php if(isset($_SESSION['util-courriel'])) { ?>
                 <div class="util">
                     <span><?= $_SESSION['util-courriel']; ?></span>
-                    <a class="btn btn-supprimer" href="index.php?action=deconnexion">&#x21E6;&nbsp;Déconnexion</a>
+                    <a class="btn btn-supprimer" href="index.php?action=deconnexion&e=2000">&#x21E6;&nbsp;Déconnexion</a>
                 </div>
             <?php } ?>
         </nav>
