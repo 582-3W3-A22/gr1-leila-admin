@@ -83,7 +83,7 @@
             <input class="btn btn-connexion" type="submit" name="btnConnexion" value="Connexion">
         </form>
         <?php if(isset($erreur) && $erreur !== '') { ?>
-            <p class="toast"><?= $erreur; ?></p>
+            <p class="toast toast-info"><?= $erreur; ?></p>
         <?php } ?>
     </section>
 <?php include('inclusions/pied2page.inc.php'); ?>

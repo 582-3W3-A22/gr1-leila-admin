@@ -27,12 +27,17 @@
 
         // Opération 'modifier' : UPDATE
         else if($op === 'modifier') {
-
+            $id = $_POST['id'];
+            $nom = $_POST['nom'];
+            $type = $_POST['type'];
+            mysqli_query($cnx, "UPDATE categorie 
+                            SET nom='$nom', type='$type' WHERE id=$id");
         }
 
         // Opération 'supprimer' : DELETE
         else if($op === 'supprimer') {
-
+            $id = $_POST['id'];
+            mysqli_query($cnx, "DELETE from categorie WHERE id=$id");
         }
     }
 
@@ -73,18 +78,18 @@
                 while($enreg = mysqli_fetch_assoc($resultat)) {
                     //print_r($enreg); // Débogage
             ?>
-                <form>
-                    <span><?= $enreg['id']; ?></span>
-                    <span><input type="text" name="cat_nom" value="<?= $enreg['nom']; ?>"></span>
+                <form method="POST">
+                    <span><input readonly type="text" name="id" value="<?= $enreg['id']; ?>"></span>
+                    <span><input type="text" name="nom" value="<?= $enreg['nom']; ?>"></span>
                     <span>
-                        <select name="cat_type" id="cat_type">
+                        <select name="type">
                             <option <?= $enreg['type']==='plat' ? 'selected' : ''; ?> value="plat">Plat</option>
-                            <option <?= $enreg['type']==='vin' ? 'selected' : ''; ?> value="plat">Vin</option>
+                            <option <?= $enreg['type']==='vin' ? 'selected' : ''; ?> value="vin">Vin</option>
                         </select>
                     </span>
                     <span class="action">
-                        <button class="btn btn-modifier">modifier</button>
-                        <button class="btn btn-supprimer">supprimer</button>
+                        <button formaction="?operation=modifier" class="btn btn-modifier">modifier</button>
+                        <button formaction="?operation=supprimer" class="btn btn-supprimer">supprimer</button>
                     </span>
                 </form>
             <?php } ?>
