@@ -10,11 +10,34 @@
         header('Location: index.php?e=1000');
     }
 
-    // Manipulation des données
+    // Connexion à la BD
     $cnx = mysqli_connect('localhost', 'root', '', 'leila');
     mysqli_set_charset($cnx, 'utf8');
+
+    // Opérations de changement des données
+    if(isset($_GET['operation'])) {
+        $op = $_GET['operation'];
+
+        // Opération 'ajouter' : INSERT
+        if($op === 'ajouter') {
+            $nom = $_POST['nom'];
+            $type = $_POST['type'];
+            mysqli_query($cnx, "INSERT INTO categorie VALUES (0, '$nom', '$type')");
+        }
+
+        // Opération 'modifier' : UPDATE
+        else if($op === 'modifier') {
+
+        }
+
+        // Opération 'supprimer' : DELETE
+        else if($op === 'supprimer') {
+
+        }
+    }
+
     // Lecture des données ('read' ====>>>> SELECT)
-    $resultat = mysqli_query($cnx, "SELECT * FROM categorie");
+    $resultat = mysqli_query($cnx, "SELECT * FROM categorie ORDER BY `type`,id");
 
     include('inclusions/entete.inc.php');
 ?>
@@ -28,18 +51,18 @@
         </header>
         <div class="data">
             <!-- Formulaire pour création de données (INSERT) -->
-            <form class="nouveau">
+            <form class="nouveau" method="POST" action="?operation=ajouter">
                 <span></span>
-                <span><input type="text" name="cat_nom" value=""></span>
+                <span><input type="text" name="nom" value=""></span>
                 <span>
-                    <select name="cat_type" id="cat_type">
+                    <select name="type">
                         <option value="">Choisir</option>
                         <option value="plat">Plat</option>
                         <option value="vin">Vin</option>
                     </select>
                 </span>
                 <span class="action">
-                    <button class="btn btn-ajouter btn-plein">ajouter</button>
+                    <button type="submit" class="btn btn-ajouter btn-plein">ajouter</button>
                 </span>
             </form>
 
